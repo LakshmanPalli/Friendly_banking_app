@@ -1,23 +1,21 @@
-package com.example.bba;
+package com.example.bankapp;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class CustomeAdapter_sendtouser extends RecyclerView.Adapter<ViewHolder> {
+public class CustomAdapterAccHolders extends RecyclerView.Adapter<ViewHolder> {
 
-    sendtouser SendtoUser;
+    AccHolders UserList;
     List<Model> modelList;
-    Context context;
 
-    public CustomeAdapter_sendtouser(sendtouser sentoUser, List<Model> modelList) {
-        this.SendtoUser = sentoUser;
+
+    public CustomAdapterAccHolders(AccHolders userList, List<Model> modelList) {
+        this.UserList = userList;
         this.modelList = modelList;
     }
 
@@ -25,13 +23,13 @@ public class CustomeAdapter_sendtouser extends RecyclerView.Adapter<ViewHolder> 
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.userslist, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.accounts_list, parent, false);
 
         ViewHolder viewHolder = new ViewHolder(itemView);
         viewHolder.setOnClickListener(new ViewHolder.ClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                SendtoUser.selectuser(position);
+                UserList.nextActivity(position); //nextActivity present in AccHolders, responsible for navigation from AccHolders.java
             }
         });
 
@@ -48,11 +46,5 @@ public class CustomeAdapter_sendtouser extends RecyclerView.Adapter<ViewHolder> 
     @Override
     public int getItemCount() {
         return modelList.size();
-    }
-
-    public void setFilter(ArrayList<Model> newList){
-        modelList = new ArrayList<>();
-        modelList.addAll(newList);
-        notifyDataSetChanged();
     }
 }

@@ -1,4 +1,4 @@
-package com.example.bba;
+package com.example.bankapp;
 
 import android.database.Cursor;
 import android.os.Bundle;
@@ -12,11 +12,11 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class history_list extends AppCompatActivity {
+public class TransHistoryList extends AppCompatActivity {
     List<Model> modelList_historylist = new ArrayList<>();
     RecyclerView mRecyclerView;
     RecyclerView.LayoutManager layoutManager;
-    CustomeAdapter_history adapter;
+    CustomAdapterHistory adapter;
 
     TextView history_empty;
 
@@ -37,7 +37,7 @@ public class history_list extends AppCompatActivity {
 
     private void showData() {
         modelList_historylist.clear();
-        Cursor cursor = new DatabaseHelper(this).readtransferdata();
+        Cursor cursor = new DatabaseHouse(this).readTransactionsData();
 
         while (cursor.moveToNext()) {
             String balancefromdb = cursor.getString(4);
@@ -53,7 +53,7 @@ public class history_list extends AppCompatActivity {
             modelList_historylist.add(model);
         }
 
-        adapter = new CustomeAdapter_history(history_list.this, modelList_historylist);
+        adapter = new CustomAdapterHistory(TransHistoryList.this, modelList_historylist);
         mRecyclerView.setAdapter(adapter);
 
         if(modelList_historylist.size() == 0){

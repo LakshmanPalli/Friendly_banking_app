@@ -1,4 +1,4 @@
-package com.example.bba;
+package com.example.bankapp;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -11,15 +11,15 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class CustomeAdapter_history extends RecyclerView.Adapter<ViewHolder> {
+public class CustomAdapterHistory extends RecyclerView.Adapter<ViewHolder> {
 
-    history_list HistoryList;
+    TransHistoryList HistoryList;
     List<Model> modelList;
     Context context;
 
-    TextView mTransc_status;
+    TextView mTranscstatus;
 
-    public CustomeAdapter_history(history_list historyList, List<Model> modelList) {
+    public CustomAdapterHistory(TransHistoryList historyList, List<Model> modelList) {
         this.HistoryList = historyList;
         this.modelList = modelList;
     }
@@ -30,7 +30,7 @@ public class CustomeAdapter_history extends RecyclerView.Adapter<ViewHolder> {
 
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.transfer_history_list, parent, false);
 
-        mTransc_status = itemView.findViewById(R.id.transaction_status);
+        mTranscstatus = itemView.findViewById(R.id.transactionstatus);
 
         ViewHolder viewHolder = new ViewHolder(itemView);
         viewHolder.setOnClickListener(new ViewHolder.ClickListener() {
@@ -49,12 +49,12 @@ public class CustomeAdapter_history extends RecyclerView.Adapter<ViewHolder> {
         holder.mName2.setText(modelList.get(position).getName2());
         holder.mBalance.setText(modelList.get(position).getBalance());
         holder.mDate.setText(modelList.get(position).getDate());
-        holder.mTransc_status.setText(modelList.get(position).getTransaction_status());
+        holder.mTranscstatus.setText(modelList.get(position).getTransactionstatus());
 
-        if(modelList.get(position).getTransaction_status().equals("Failed")){
-            holder.mTransc_status.setTextColor(Color.parseColor("#f40404"));
+        if(modelList.get(position).getTransactionstatus().equals("Failed")){
+            holder.mTranscstatus.setTextColor(Color.parseColor("#f40404"));
         }else{
-            holder.mTransc_status.setTextColor(Color.parseColor("#4BB543"));
+            holder.mTranscstatus.setTextColor(Color.parseColor("#4BB543"));
         }
     }
 

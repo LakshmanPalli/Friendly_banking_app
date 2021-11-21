@@ -11,9 +11,9 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="5dp"
-        android:layout_margin="8dp">
+        android:layout_height="90dp"
+        android:layout_margin="8dp"
+        android:padding="5dp">
 
         <LinearLayout
             android:id="@+id/Username"
@@ -26,28 +26,31 @@
                 android:id="@+id/name1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="name1"
-                android:textSize="15sp"
                 android:layout_gravity="center_vertical"
-                android:textStyle="bold"
-                android:textColor="#00b2ff"></TextView>
+                android:text="name1"
+                android:textColor="#03DAC5"
+                android:textSize="20dp"
+                android:textStyle="bold"></TextView>
 
             <ImageView
                 android:id="@+id/arrow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="5dp"
+                android:layout_width="50dp"
+                android:layout_height="30dp"
                 android:layout_gravity="center_vertical|center_horizontal"
-                android:src="@drawable/arrow"></ImageView>
+                android:layout_marginHorizontal="5dp"
+                android:src="@drawable/next">
+                android:img_size=
+            </ImageView>
+
             <TextView
                 android:id="@+id/name2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="name2"
-                android:textSize="15sp"
                 android:layout_gravity="center_vertical"
-                android:textStyle="bold"
-                android:textColor="#00b2ff"></TextView>
+                android:text="name2"
+                android:textColor="#03DAC5"
+                android:textSize="20dp"
+                android:textStyle="bold"></TextView>
         </LinearLayout>
 
         <LinearLayout
@@ -60,9 +63,9 @@
             <TextView
                 android:id="@+id/date"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:text="date"
-                android:textSize="15dp"></TextView>
+                android:textSize="20dp"></TextView>
         </LinearLayout>
 
         <LinearLayout
@@ -73,43 +76,36 @@
             android:layout_marginRight="10dp">
 
             <TextView
-                android:id="@+id/rupee"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Rs."
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:textColor="#00b2ff"></TextView>
-
-            <TextView
                 android:id="@+id/balance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="amount"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:textColor="#00b2ff"></TextView>
+                android:textColor="#03DAC5"
+                android:textSize="20dp"
+                android:textStyle="bold"></TextView>
+
             <TextView
                 android:id="@+id/rupeeslash"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=" /-"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:textColor="#00b2ff"></TextView>
+                android:textColor="#03DAC5"
+                android:textSize="20dp"
+                android:textStyle="bold"></TextView>
         </LinearLayout>
 
         <TextView
-            android:id="@+id/transaction_status"
+            android:id="@+id/transactionstatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/Amount"
             android:text="Transaction status"
             android:textStyle="bold"
-            android:textSize="15sp"
+            android:textSize="20dp"
             android:layout_alignParentRight="true"
             android:layout_marginTop="8dp"
             android:layout_marginRight="10dp"></TextView>
+
     </RelativeLayout>
 
 </android.support.v7.widget.CardView>

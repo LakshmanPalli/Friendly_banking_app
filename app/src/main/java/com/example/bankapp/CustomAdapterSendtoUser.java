@@ -1,22 +1,22 @@
-package com.example.bba;
+package com.example.bankapp;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class CustomeAdapter_userlist extends RecyclerView.Adapter<ViewHolder> {
+public class CustomAdapterSendtoUser extends RecyclerView.Adapter<ViewHolder> {
 
-    user_list UserList;
+    com.example.bankapp.SendtoUser SendtoUser;
     List<Model> modelList;
-    Context context;
+    //Context context;
 
-    public CustomeAdapter_userlist(user_list userList, List<Model> modelList) {
-        this.UserList = userList;
+    public CustomAdapterSendtoUser(com.example.bankapp.SendtoUser sendtoUser, List<Model> modelList) {
+        this.SendtoUser = sendtoUser;
         this.modelList = modelList;
     }
 
@@ -24,16 +24,15 @@ public class CustomeAdapter_userlist extends RecyclerView.Adapter<ViewHolder> {
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.userslist, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.accounts_list, parent, false);
 
         ViewHolder viewHolder = new ViewHolder(itemView);
         viewHolder.setOnClickListener(new ViewHolder.ClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                UserList.nextActivity(position);
+                SendtoUser.selectuser(position);
             }
         });
-
         return viewHolder;
     }
 
@@ -47,5 +46,11 @@ public class CustomeAdapter_userlist extends RecyclerView.Adapter<ViewHolder> {
     @Override
     public int getItemCount() {
         return modelList.size();
+    }
+
+    public void setFilter(ArrayList<Model> newList){
+        modelList = new ArrayList<>();
+        modelList.addAll(newList);
+        notifyDataSetChanged();
     }
 }

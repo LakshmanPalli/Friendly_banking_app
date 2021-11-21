@@ -1,4 +1,4 @@
-package com.example.bba;
+package com.example.bankapp;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -10,7 +10,7 @@ import android.widget.ImageView;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
-    Button view_users;
+    Button acc_holders;
     ImageView imageView;
 
     @Override
@@ -18,14 +18,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        view_users = findViewById(R.id.view_users);
+        acc_holders = findViewById(R.id.view_accounts);
         imageView = findViewById(R.id.imageView4);
 
-        view_users.setOnClickListener(new View.OnClickListener() {
+        acc_holders.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, user_list.class));
-                Log.d(TAG, "onClick: userlist start");
+                startActivity(new Intent(MainActivity.this, AccHolders.class));
+                Log.d(TAG, "onClick: list of accounts");
             }
         });
     }

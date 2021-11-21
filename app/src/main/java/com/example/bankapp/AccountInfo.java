@@ -1,4 +1,4 @@
-package com.example.bba;
+package com.example.bankapp;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,29 +18,30 @@ import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public class user_data extends AppCompatActivity {
-
+public class AccountInfo extends AppCompatActivity {
+    private static final String TAG = "class AccountInfo:";
     ProgressDialog progressDialog;
     String phonenumber;
     Double newbalance;
-    TextView name, phoneNumber, email, account_no, ifsc_code, balance;
-    Button transfer_button;
+    TextView name, phoneNumber, accountno, ifsccode, balance;
+    Button transferbutton;
     AlertDialog dialog;
+    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_userdata);
+        setContentView(R.layout.activity_account_info);
+        Log.d(TAG, "onCreate: layout set");
 
         name = findViewById(R.id.username);
         phoneNumber = findViewById(R.id.userphonenumber);
-        email = findViewById(R.id.email);
-        account_no = findViewById(R.id.account_no);
-        ifsc_code = findViewById(R.id.ifsc_code);
+        accountno = findViewById(R.id.account_no);
+        ifsccode = findViewById(R.id.ifsc_code);
         balance = findViewById(R.id.balance);
-        transfer_button = findViewById(R.id.transfer_button);
+        transferbutton = findViewById(R.id.transfer_button);
 
-        progressDialog = new ProgressDialog(user_data.this);
+        progressDialog = new ProgressDialog(AccountInfo.this);
         progressDialog.setTitle("Loading data...");
         progressDialog.show();
 
@@ -49,7 +51,7 @@ public class user_data extends AppCompatActivity {
             showData(phonenumber);
         }
 
-        transfer_button.setOnClickListener(new View.OnClickListener() {
+        transferbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 enterAmount();
@@ -58,7 +60,7 @@ public class user_data extends AppCompatActivity {
     }
 
     private void showData(String phonenumber) {
-        Cursor cursor = new DatabaseHelper(this).readparticulardata(phonenumber);
+        Cursor cursor = new DatabaseHouse(this).readSenderData(phonenumber);
         while(cursor.moveToNext()) {
             String balancefromdb = cursor.getString(2);
             newbalance = Double.parseDouble(balancefromdb);
@@ -73,18 +75,18 @@ public class user_data extends AppCompatActivity {
 
             phoneNumber.setText(cursor.getString(0));
             name.setText(cursor.getString(1));
-            email.setText(cursor.getString(3));
+            //email.setText(cursor.getString(3));
             balance.setText(price);
-            account_no.setText(cursor.getString(4));
-            ifsc_code.setText(cursor.getString(5));
+            accountno.setText(cursor.getString(4));
+            ifsccode.setText(cursor.getString(5));
         }
 
     }
 
     private void enterAmount() {
-        final AlertDialog.Builder mBuilder = new AlertDialog.Builder(user_data.this);
-        View mView = getLayoutInflater().inflate(R.layout.activity_transfer_money, null);
-        mBuilder.setTitle("Enter amount").setView(mView).setCancelable(false);
+        final AlertDialog.Builder mBuilder = new AlertDialog.Builder(AccountInfo.this);
+        View mView = getLayoutInflater().inflate(R.layout.activity_transfermoney, null);
+        mBuilder.setTitle("Enter the amount in rupees").setView(mView).setCancelable(false);
 
         final EditText mAmount = (EditText) mView.findViewById(R.id.enter_money);
 
@@ -106,11 +108,11 @@ public class user_data extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(mAmount.getText().toString().isEmpty()){
-                    mAmount.setError("Amount can't be empty");
+                    mAmount.setError("Enter amount greater than Zero");
                 }else if(Double.parseDouble(mAmount.getText().toString()) > newbalance){
                     mAmount.setError("Your account don't have enough balance");
                 }else{
-                    Intent intent = new Intent(user_data.this, sendtouser.class);
+                    Intent intent = new Intent(AccountInfo.this, SendtoUser.class);
                     intent.putExtra("phonenumber", phoneNumber.getText().toString());
                     intent.putExtra("name", name.getText().toString());
                     intent.putExtra("currentamount", newbalance.toString());
@@ -123,18 +125,18 @@ public class user_data extends AppCompatActivity {
     }
 
     private void transactionCancel() {
-        AlertDialog.Builder builder_exitbutton = new AlertDialog.Builder(user_data.this);
+        AlertDialog.Builder builder_exitbutton = new AlertDialog.Builder(AccountInfo.this);
         builder_exitbutton.setTitle("Do you want to cancel the transaction?").setCancelable(false)
-                .setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
                         Calendar calendar = Calendar.getInstance();
-                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MMM-yyyy, hh:mm a");
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a, dd-MMM-yyyy");
                         String date = simpleDateFormat.format(calendar.getTime());
 
-                        new DatabaseHelper(user_data.this).insertTransferData(date, name.getText().toString(), "Not selected", "0", "Failed");
-                        Toast.makeText(user_data.this, "Transaction Cancelled!", Toast.LENGTH_LONG).show();
+                        new DatabaseHouse(AccountInfo.this).insertTransferData(date, name.getText().toString(), "Not selected", "0", "Failed");
+                        Toast.makeText(AccountInfo.this, "Transaction Cancelled!", Toast.LENGTH_LONG).show();
                     }
                 }).setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override

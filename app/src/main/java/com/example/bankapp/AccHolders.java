@@ -1,4 +1,4 @@
-package com.example.bba;
+ package com.example.bankapp;
 
 
 import android.content.Intent;
@@ -16,21 +16,21 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class user_list extends AppCompatActivity {
+public class AccHolders extends AppCompatActivity {
 
-    private static final String TAG = "user_list";
-    List<Model> modelList_showlist = new ArrayList<>();
+    private static final String TAG = "class AccHolders:";
+    List<Model> modelListshowlist = new ArrayList<>();
     RecyclerView mRecyclerView;
     RecyclerView.LayoutManager layoutManager;
-    CustomeAdapter_userlist adapter;
+    CustomAdapterAccHolders adapter;
     String phonenumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_show_allusers);
+        setContentView(R.layout.activity_show_all_accounts);
 
-        Log.d(TAG, "onCreate: userlist create");
+        Log.d(TAG, "onCreate: List of accounts create");
 
         mRecyclerView = findViewById(R.id.recyclerview);
         mRecyclerView.setHasFixedSize(true);
@@ -42,9 +42,9 @@ public class user_list extends AppCompatActivity {
 
     private void showData() {
         Log.d(TAG, "showData: called");
-        modelList_showlist.clear();
-        Log.d(TAG, "showData: modellist cleared");
-        Cursor cursor = new DatabaseHelper(this).readalldata();
+        modelListshowlist.clear();
+        Log.d(TAG, "showData: modelList cleared");
+        Cursor cursor = new DatabaseHouse(this).readAccountsTable();
         while(cursor.moveToNext()){
 
             Log.d(TAG, "showData: inside cursor");
@@ -58,21 +58,23 @@ public class user_list extends AppCompatActivity {
             String price = nf.format(balance);
 
             Model model = new Model(cursor.getString(0), cursor.getString(1), price);
-            modelList_showlist.add(model);
+            modelListshowlist.add(model);
         }
         Log.d(TAG, "showData: outside cursor");
 
-        adapter = new CustomeAdapter_userlist(user_list.this, modelList_showlist);
+        adapter = new CustomAdapterAccHolders(AccHolders.this, modelListshowlist); //focus shift to CustomAdapterAccHolders.java
         mRecyclerView.setAdapter(adapter);
 
     }
 
     public void nextActivity(int position) {
         Log.d(TAG, "nextActivity: called");
-        phonenumber = modelList_showlist.get(position).getPhoneno();
-        Intent intent = new Intent(user_list.this, user_data.class);
+        phonenumber = modelListshowlist.get(position).getPhoneno();
+        Intent intent = new Intent(AccHolders.this, AccountInfo.class);
         intent.putExtra("phonenumber",phonenumber);
         startActivity(intent);
+        Log.d(TAG, "close of nextActivity to AccountInfo");
+
     }
 
     @Override
@@ -84,7 +86,7 @@ public class user_list extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId()==R.id.action_history){
-            startActivity(new Intent(user_list.this, history_list.class));
+            startActivity(new Intent(AccHolders.this, TransHistoryList.class));
         }
         return super.onOptionsItemSelected(item);
     }

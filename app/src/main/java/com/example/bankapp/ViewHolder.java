@@ -1,14 +1,14 @@
-package com.example.bba;
+package com.example.bankapp;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+// Class creates a view layout for the transactions history page...
 public class ViewHolder extends RecyclerView.ViewHolder {
 
-    TextView mName, mPhonenumber, mBalance, mRupee, mRupeeslash, mName1, mName2, mDate, mTransc_status;
+    TextView mName, mPhonenumber, mBalance, mRupee, mRupeeslash, mName1, mName2, mDate, mTranscstatus;
     ImageView mPhone, mArrow;
     View mView;
 
@@ -26,7 +26,7 @@ public class ViewHolder extends RecyclerView.ViewHolder {
         mName2 = itemView.findViewById(R.id.name2);
         mDate = itemView.findViewById(R.id.date);
         mArrow = itemView.findViewById(R.id.arrow);
-        mTransc_status = itemView.findViewById(R.id.transaction_status);
+        mTranscstatus = itemView.findViewById(R.id.transactionstatus);
 
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override

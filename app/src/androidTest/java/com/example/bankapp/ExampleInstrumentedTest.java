@@ -1,4 +1,4 @@
-package com.example.bba;
+package com.example.bankapp;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

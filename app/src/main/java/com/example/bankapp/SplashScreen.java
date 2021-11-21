@@ -1,4 +1,4 @@
-package com.example.bba;
+package com.example.bankapp;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,7 +12,6 @@ public class SplashScreen extends AppCompatActivity {
     Handler handler;
     ImageView imageView;
     TextView textView;
-    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

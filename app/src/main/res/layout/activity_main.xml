@@ -7,26 +7,32 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/view_users"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:id="@+id/view_accounts"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="225dp"
+        android:layout_height="77dp"
         android:layout_marginStart="80dp"
         android:layout_marginEnd="80dp"
-        android:layout_marginBottom="80dp"
-        android:text="View Users"
+        android:layout_marginBottom="96dp"
+        android:backgroundTint="@color/colorPrime"
+        android:text="Account Holders"
+        android:textColor="#FFFFFF"
+        android:textColorHighlight="#BC8383"
+        android:textColorLink="@color/colorPrimary"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/imageView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="200dp"
+        android:layout_width="326dp"
+        android:layout_height="640dp"
+        android:layout_marginBottom="140dp"
+        android:contentDescription="logo of bank"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/bankbuild" />
 

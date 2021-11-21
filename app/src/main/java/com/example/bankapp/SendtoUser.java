@@ -1,5 +1,6 @@
-package com.example.bba;
+package com.example.bankapp;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,14 +21,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+// Class does main func of transfer of money and required neccessary returns..
+public class SendtoUser extends AppCompatActivity {
 
-public class sendtouser extends AppCompatActivity {
-
-    private static final String TAG = "sendtouser";
+    private static final String TAG = "SendtoUser";
     List<Model> modelList_sendtouser = new ArrayList<>();
     RecyclerView mRecyclerView;
     RecyclerView.LayoutManager layoutManager;
-    CustomeAdapter_sendtouser adapter;
+    CustomAdapterSendtoUser adapter;
 
     String phonenumber, name, currentamount, transferamount, remainingamount;
     String selectuser_phonenumber, selectuser_name, selectuser_balance, date;
@@ -43,7 +44,7 @@ public class sendtouser extends AppCompatActivity {
         mRecyclerView.setLayoutManager(layoutManager);
 
         Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MMM-yyyy, hh:mm a");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat = new SimpleDateFormat("'on' dd.MM.yyyy 'at' HH:mm");
         date = simpleDateFormat.format(calendar.getTime());
 
         Bundle bundle = getIntent().getExtras();
@@ -60,7 +61,7 @@ public class sendtouser extends AppCompatActivity {
         modelList_sendtouser.clear();
         Log.d("DEMO",phonenumber);
         Log.d(TAG, "showData: ");
-        Cursor cursor = new DatabaseHelper(this).readselectuserdata(phonenumber);
+        Cursor cursor = new DatabaseHouse(this).readSelectReceiverList(phonenumber);
         while(cursor.moveToNext()){
             String balancefromdb = cursor.getString(2);
             Double balance = Double.parseDouble(balancefromdb);
@@ -75,13 +76,13 @@ public class sendtouser extends AppCompatActivity {
             modelList_sendtouser.add(model);
         }
 
-        adapter = new CustomeAdapter_sendtouser(sendtouser.this, modelList_sendtouser);
+        adapter = new CustomAdapterSendtoUser(SendtoUser.this, modelList_sendtouser);
         mRecyclerView.setAdapter(adapter);
     }
 
     public void selectuser(int position) {
         selectuser_phonenumber = modelList_sendtouser.get(position).getPhoneno();
-        Cursor cursor = new DatabaseHelper(this).readparticulardata(selectuser_phonenumber);
+        Cursor cursor = new DatabaseHouse(this).readSenderData(selectuser_phonenumber);
         while(cursor.moveToNext()) {
             selectuser_name = cursor.getString(1);
             selectuser_balance = cursor.getString(2);
@@ -89,11 +90,11 @@ public class sendtouser extends AppCompatActivity {
             Double Dselectuser_transferamount = Double.parseDouble(transferamount);
             Double Dselectuser_remainingamount = Dselectuser_balance + Dselectuser_transferamount;
 
-            new DatabaseHelper(this).insertTransferData(date, name, selectuser_name, transferamount, "Success");
-            new DatabaseHelper(this).updateAmount(selectuser_phonenumber, Dselectuser_remainingamount.toString());
+            new DatabaseHouse(this).insertTransferData(date, name, selectuser_name, transferamount, "successful");
+            new DatabaseHouse(this).updateAmount(selectuser_phonenumber, Dselectuser_remainingamount.toString());
             calculateAmount();
-            Toast.makeText(this, "Transaction Successful!", Toast.LENGTH_LONG).show();
-            startActivity(new Intent(sendtouser.this, user_list.class));
+            Toast.makeText(this, "Transaction successfully done", Toast.LENGTH_LONG).show();
+            startActivity(new Intent(SendtoUser.this, AccHolders.class));
             finish();
         }
     }
@@ -103,19 +104,19 @@ public class sendtouser extends AppCompatActivity {
         Double Dtransferamount = Double.parseDouble(transferamount);
         Double Dremainingamount = Dcurrentamount - Dtransferamount;
         remainingamount = Dremainingamount.toString();
-        new DatabaseHelper(this).updateAmount(phonenumber, remainingamount);
+        new DatabaseHouse(this).updateAmount(phonenumber, remainingamount);
     }
 
     @Override
     public void onBackPressed() {
-        AlertDialog.Builder builder_exitbutton = new AlertDialog.Builder(sendtouser.this);
+        AlertDialog.Builder builder_exitbutton = new AlertDialog.Builder(SendtoUser.this);
         builder_exitbutton.setTitle("Do you want to cancel the transaction?").setCancelable(false)
-                .setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        new DatabaseHelper(sendtouser.this).insertTransferData(date, name, "Not selected", transferamount, "Failed");
-                        Toast.makeText(sendtouser.this, "Transaction Cancelled!", Toast.LENGTH_LONG).show();
-                        startActivity(new Intent(sendtouser.this, user_list.class));
+                        new DatabaseHouse(SendtoUser.this).insertTransferData(date, name, "Not Selected", transferamount, "failure");
+                        Toast.makeText(SendtoUser.this, "bang! Transaction Cancelled", Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(SendtoUser.this, AccHolders.class));
                         finish();
                     }
                 }).setNegativeButton("No", null);

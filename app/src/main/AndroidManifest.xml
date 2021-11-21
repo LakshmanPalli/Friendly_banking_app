@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.bba">
+    package="com.example.bankapp">
 
     <application
         android:allowBackup="true"
@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SplashScreen"
+        <activity android:name="com.example.bankapp.SplashScreen"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,20 +17,24 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"
+        <activity android:name="com.example.bankapp.MainActivity"
             />
         <activity
-            android:name=".user_list"
-            android:label="Users" />
+            android:name="com.example.bankapp.AccHolders"
+            android:label="Accounts" />
         <activity
-            android:name=".history_list"
-            android:label="History" />
+            android:name="com.example.bankapp.TransHistoryList"
+            android:label="Transactions" />
         <activity
-            android:name=".sendtouser"
-            android:label="Select User" />
+            android:name="com.example.bankapp.SendtoUser"
+            android:label="Select Receiver" />
         <activity
-            android:name=".user_data"
-            android:label="User Data" />
+            android:name="com.example.bankapp.AccountInfo"
+            android:label="Account Information" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>
